@@ -1,0 +1,8 @@
+dofile(minetest.get_modpath("hightech") .. "/dark.lua")
+dofile(minetest.get_modpath("hightech") .. "/glass.lua")
+dofile(minetest.get_modpath("hightech") .. "/stripes.lua")
+dofile(minetest.get_modpath("hightech") .. "/doors.lua")
+dofile(minetest.get_modpath("hightech") .. "/sign.lua")
+dofile(minetest.get_modpath("hightech") .. "/tech_card_api.lua")
+dofile(minetest.get_modpath("hightech") .. "/tech_card.lua")
+dofile(minetest.get_modpath("hightech") .. "/handcuffs.lua")
