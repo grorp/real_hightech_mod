@@ -16,7 +16,7 @@ signs_lib.register_sign(
 		x_offset = 3,
 		default_color = "f",
 		allow_widefont = true,
-		groups = {cracky = 3},
+		groups = {sign = 1, cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
 	}
 )
