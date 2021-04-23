@@ -1,3 +1,21 @@
+function hightech.get_stripe_texture(conn_dirs)
+	local texture = "hightech_dark.png^(hightech_stripe_middle.png"
+	if conn_dirs[1] then
+		texture = texture .. "^(hightech_stripe_part.png^[transformFYR90)"
+	end
+	if conn_dirs[2] then
+		texture = texture .. "^(hightech_stripe_part.png^[transformR90)"
+	end
+	if conn_dirs[3] then
+		texture = texture .. "^hightech_stripe_part.png"
+	end
+	if conn_dirs[4] then
+		texture = texture .. "^(hightech_stripe_part.png^[transformFY)"
+	end
+	texture = texture .. ")"
+	return texture
+end
+
 minetest.register_node(
 	"hightech:dark_stripe_horizontal",
 	{
@@ -5,7 +23,7 @@ minetest.register_node(
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",
-			"hightech_dark_stripe.png",
+			hightech.get_stripe_texture({true, true, false, false}),
 		},
 		paramtype = "light",
 		light_source = minetest.LIGHT_MAX,
@@ -29,7 +47,7 @@ minetest.register_node(
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",
-			"hightech_dark_stripe.png^[transformR90"
+			hightech.get_stripe_texture({false, false, true, true}),
 		},
 		paramtype = "light",
 		light_source = minetest.LIGHT_MAX,

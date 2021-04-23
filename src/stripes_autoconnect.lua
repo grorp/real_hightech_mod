@@ -69,23 +69,6 @@ local function update_surrounding_autoconnect_stripe_nodes(node_basename, pos)
 	end
 end
 
-local function get_autoconnect_stripe_node_texture(conn_dirs)
-	local texture = "hightech_stripe_middle.png"
-	if conn_dirs[1] then
-		texture = texture .. "^(hightech_stripe_part.png^[transformFYR90)"
-	end
-	if conn_dirs[2] then
-		texture = texture .. "^(hightech_stripe_part.png^[transformR90)"
-	end
-	if conn_dirs[3] then
-		texture = texture .. "^hightech_stripe_part.png"
-	end
-	if conn_dirs[4] then
-		texture = texture .. "^(hightech_stripe_part.png^[transformFY)"
-	end
-	return texture
-end
-
 local autoconnect_stripe_top_node_basename = "hightech:dark_stripe_top_autoconnect"
 local autoconnect_stripe_top_nodenames = {}
 local autoconnect_stripe_bottom_node_basename = "hightech:dark_stripe_bottom_autoconnect"
@@ -106,7 +89,7 @@ for xp = 0, 1 do
 						description = is_in_inv and "Dark Hightech Block\n(automatically connecting stripe on the top)" or "",
 						not_in_creative_inventory = not is_in_inv,
 						tiles = {
-							"hightech_dark.png^(" .. get_autoconnect_stripe_node_texture(conn_dirs) .. ")",
+							hightech.get_stripe_texture(conn_dirs),
 							"hightech_dark.png",
 						},
 						paramtype = "light",
@@ -131,7 +114,7 @@ for xp = 0, 1 do
 						not_in_creative_inventory = not is_in_inv,
 						tiles = {
 							"hightech_dark.png",
-							"hightech_dark.png^(" .. get_autoconnect_stripe_node_texture(conn_dirs) .. ")^[transformFY",
+							hightech.get_stripe_texture(conn_dirs) .. "^[transformFY",
 							"hightech_dark.png",
 						},
 						paramtype = "light",
