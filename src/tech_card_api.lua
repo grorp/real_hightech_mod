@@ -17,7 +17,7 @@ function hightech.tech_card.save()
 end
 
 -- hightech.tech_card.new creates a new TechCard and returns its ID.
--- Note: You must call tech_card.save afterwards!
+-- Note: You must call hightech.tech_card.save afterwards!
 function hightech.tech_card.new()
 	local id = string.format("%012x", current_index)
 	tech_cards[id] = {
@@ -38,13 +38,13 @@ function hightech.tech_card.get_balance(id)
 end
 
 -- hightech.tech_card.add adds the specified amount of Techies to the TechCard with the specified ID.
--- Note: You must call tech_card.save afterwards!
+-- Note: You must call hightech.tech_card.save afterwards!
 function hightech.tech_card.add(id, amount)
 	tech_cards[id].balance = tech_cards[id].balance + amount
 end
 
 -- hightech.tech_card.subtract subtracts the specified amount of Techies from the TechCard with the specified ID.
--- Note: You must call tech_card.save afterwards!
+-- Note: You must call hightech.tech_card.save afterwards!
 function hightech.tech_card.subtract(id, amount)
 	tech_cards[id].balance = tech_cards[id].balance - amount
 end
