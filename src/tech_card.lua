@@ -1,6 +1,10 @@
 local S = minetest.get_translator("hightech")
 local F = minetest.formspec_escape
 
+local function is_int(n)
+	return n == math.floor(n)
+end
+
 local _contexts = {}
 local function get_context(name)
 		local context = _contexts[name] or {}
@@ -58,6 +62,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				end
 				if amount <= 0 then
 					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be greater than 0."))
+					return
+				end
+				if not is_int(amount) then
+					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be a whole number."))
 					return
 				end
 				if not hightech.tech_card.can_subtract(context.tech_card_id, amount) then

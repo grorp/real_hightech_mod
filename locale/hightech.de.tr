@@ -39,6 +39,7 @@ There is no TechCard with the ID "@1".=Es gibt keine TechCard mit der ID "@1".
 You can't tranfer Techies from a TechCard to itself.=Du kannst von einer TechCard keine Techies auf sie selbst überweisen.
 "@1" isn't a number.="@1" ist keine Zahl.
 The amount of Techies to transfer must be greater than 0.=Der zu überweisende Betrag an Techies muss größer als 0 sein.
+The amount of Techies to transfer must be a whole number.=Der zu überweisende Betrag an Techies muss eine ganze Zahl sein.
 You cannot transfer more Techies than you have.=Du kannst nicht mehr Techies überweisen, als du besitzt.
 @1 Techies were transfered from the TechCard with the ID "@2" to the TechCard with the ID "@3".=@1 Techies wurden von der TechCard mit der ID "@2" an die TechCard mit der ID "@3" überwiesen.
 Not yet configured=Noch nicht konfiguriert
