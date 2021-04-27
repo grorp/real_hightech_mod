@@ -1,3 +1,5 @@
+local S = minetest.get_translator("hightech")
+
 -- str_starts_with checks if the specified string starts with the specified prefix.
 local function str_starts_with(str, prefix)
 	return str:sub(1, #prefix) == prefix
@@ -86,7 +88,7 @@ for xp = 0, 1 do
 				minetest.register_node(
 					autoconnect_stripe_top_nodename,
 					{
-						description = is_in_inv and "Dark Hightech Block\n(automatically connecting stripe on the top)" or "",
+						description = is_in_inv and S("Dark Hightech Block\n(automatically connecting stripe on the top)") or "",
 						not_in_creative_inventory = not is_in_inv,
 						tiles = {
 							hightech.get_stripe_texture(conn_dirs),
@@ -110,7 +112,7 @@ for xp = 0, 1 do
 				minetest.register_node(
 					autoconnect_stripe_bottom_nodename,
 					{
-						description = is_in_inv and "Dark Hightech Block\n(automatically connecting stripe on the bottom)" or "",
+						description = is_in_inv and S("Dark Hightech Block\n(automatically connecting stripe on the bottom)") or "",
 						not_in_creative_inventory = not is_in_inv,
 						tiles = {
 							"hightech_dark.png",

@@ -1,7 +1,9 @@
+local S = minetest.get_translator("hightech")
+
 minetest.register_node(
 	"hightech:glass",
 	{
-		description = "Hightech Glass",
+		description = S("Hightech Glass"),
 		tiles = {"hightech_glass.png"},
 		drawtype = "glasslike",
 		use_texture_alpha = "blend",
@@ -17,10 +19,12 @@ stairs.register_stair_and_slab(
 	"hightech:glass",
 	{cracky = 3, oddly_breakable_by_hand = 3},
 	{"hightech_glass.png"},
-	"Hightech Glass Stair",
-	"Hightech Glass Slab",
+	S("Hightech Glass Stair"),
+	S("Hightech Glass Slab"),
 	default.node_sound_glass_defaults(),
-	false
+	false,
+	S("Inner Hightech Glass Stair"),
+	S("Outer Hightech Glass Stair")
 )
 minetest.override_item("stairs:stair_hightech_glass", {
 	paramtype = "light",
@@ -42,7 +46,7 @@ minetest.override_item("stairs:slab_hightech_glass", {
 minetest.register_node(
 	"hightech:glass_ore",
 	{
-		description = "Hightech Glass Ore",
+		description = S("Hightech Glass Ore"),
 		tiles = {"default_stone.png^hightech_glass_ore.png"},
 		paramtype = light,
 		light_source = minetest.LIGHT_MAX / 4 * 3,
@@ -63,7 +67,7 @@ minetest.register_ore({
 minetest.register_craftitem(
 	"hightech:glass_dust",
 	{
-		description = "Hightech Glass Dust",
+		description = S("Hightech Glass Dust"),
 		inventory_image = "hightech_glass_dust.png",
 	}
 )

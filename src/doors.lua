@@ -1,7 +1,9 @@
+local S = minetest.get_translator("hightech")
+
 doors.register(
 	"hightech:door",
 	{
-		description = "Hightech Door",
+		description = S("Hightech Door"),
 		tiles = {"hightech_door.png"},
 		inventory_image = "hightech_door_inv.png",
 		use_texture_alpha = "blend",
@@ -23,7 +25,7 @@ minetest.register_craft({
 doors.register(
 	"hightech:door_locked",
 	{
-		description = "Hightech Door\n(locked)",
+		description = S("Hightech Door\n(locked)"),
 		tiles = {"hightech_door.png"},
 		inventory_image = "hightech_door_inv.png",
 		use_texture_alpha = "blend",
@@ -46,7 +48,7 @@ minetest.register_craft({
 doors.register(
 	"hightech:door_no_window",
 	{
-		description = "Hightech Door\n(no window)",
+		description = S("Hightech Door\n(no window)"),
 		tiles = {"hightech_door_no_window.png"},
 		inventory_image = "hightech_door_no_window_inv.png",
 		groups = {cracky = 3},
@@ -65,7 +67,7 @@ minetest.register_craft({
 doors.register(
 	"hightech:door_no_window_locked",
 	{
-		description = "Hightech Door\n(no window, locked)",
+		description = S("Hightech Door\n(no window, locked)"),
 		tiles = {"hightech_door_no_window.png"},
 		inventory_image = "hightech_door_no_window_inv.png",
 		protected = true,

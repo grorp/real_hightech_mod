@@ -1,3 +1,6 @@
+local S = minetest.get_translator("hightech")
+local F = minetest.formspec_escape
+
 local _contexts = {}
 local function get_context(name)
 		local context = _contexts[name] or {}
@@ -12,20 +15,20 @@ local function tech_card_get_formspec(context)
 	return
 		"formspec_version[4]" ..
 		"size[3.62,3.3]" ..
-		"label[0.375,0.5;" .. minetest.colorize("#00fffb", "TechCard") .. "]" ..
-		"label[0.375,1.125;ID:               " .. minetest.formspec_escape(context.tech_card_id) .. "]" ..
-		"label[0.375,1.5;Balance:    " .. hightech.tech_card.get_balance(context.tech_card_id) .. " Techies]" ..
-		"button[0.375,2.125;2.87,0.8;transfer;Transfer]"
+		"label[0.375,0.5;" .. minetest.colorize("#00fffb", F(S("TechCard"))) .. "]" ..
+		"label[0.375,1.125;" .. F(S("ID: @1", context.tech_card_id)) .. "]" ..
+		"label[0.375,1.5;" .. F(S("Balance: @1 Techies", hightech.tech_card.get_balance(context.tech_card_id))) .. "]" ..
+		"button[0.375,2.125;2.87,0.8;transfer;" .. F(S("Transfer")) .. "]"
 end
 
 local function tech_card_get_transfer_formspec(context)
 	return
 		"formspec_version[4]" ..
 		"size[3.62,4.755]" ..
-		"label[0.375,0.5;" .. minetest.colorize("#00fffb", "Transfer") .. "]" ..
-		"field[0.375,1.25;2.87,0.8;receiver_id;Receiver ID;]" ..
-		"field[0.375,2.55;2.87,0.8;amount;Amount                  \\[Techies\\];]" ..
-		"button[0.375,3.58;2.87,0.8;transfer;Transfer]"
+		"label[0.375,0.5;" .. minetest.colorize("#00fffb", F(S("Transfer"))) .. "]" ..
+		"field[0.375,1.25;2.87,0.8;receiver_id;" .. F(S("Receiver ID")) .. ";]" ..
+		"field[0.375,2.55;2.87,0.8;amount;" .. F(S("Amount [Techies]")) .. ";]" ..
+		"button[0.375,3.58;2.87,0.8;transfer;" .. F(S("Transfer")) .. "]"
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -41,41 +44,41 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 					return
 				end
 				if not hightech.tech_card.exists(fields.receiver_id) then
-					minetest.chat_send_player(player:get_player_name(), "There is no TechCard with the ID " .. fields.receiver_id .. ".")
+					minetest.chat_send_player(player:get_player_name(), S("There is no TechCard with the ID \"@1\".", fields.receiver_id))
 					return
 				end
 				if fields.receiver_id == context.tech_card_id then
-					minetest.chat_send_player(player:get_player_name(), "You can't tranfer Techies from a TechCard to itself.")
+					minetest.chat_send_player(player:get_player_name(), S("You can't tranfer Techies from a TechCard to itself."))
 					return
 				end
 				local amount = tonumber(fields.amount)
 				if amount == nil then
-					minetest.chat_send_player(player:get_player_name(), "\"" .. fields.amount .. "\" isn't a number.")
+					minetest.chat_send_player(player:get_player_name(), S("\"@1\" isn't a number.", fields.amount))
 					return
 				end
 				if amount <= 0 then
-					minetest.chat_send_player(player:get_player_name(), "The amount of Techies to transfer must be greater than 0.")
+					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be greater than 0."))
 					return
 				end
 				if not hightech.tech_card.can_subtract(context.tech_card_id, amount) then
-					minetest.chat_send_player(player:get_player_name(), "You can't transfer more Techies than you have.")
+					minetest.chat_send_player(player:get_player_name(), S("You can't transfer more Techies than you have."))
 					return
 				end
 				hightech.tech_card.subtract(context.tech_card_id, amount)
 				hightech.tech_card.add(fields.receiver_id, amount)
 				hightech.tech_card.save()
-				minetest.chat_send_player(player:get_player_name(), amount .. " Techies were transfered from the TechCard with the ID " .. context.tech_card_id .. " to the TechCard with the ID " .. fields.receiver_id .. ".")
+				minetest.chat_send_player(player:get_player_name(), S("@1 Techies were transfered from the TechCard with the ID \"@2\" to the TechCard with the ID \"@3\".", amount, context.tech_card_id, fields.receiver_id))
 				minetest.show_formspec(player:get_player_name(), "hightech:tech_card_gui", tech_card_get_formspec(context))
 			end
 		end
 end)
 
 local function update_tech_card_description(meta)
-	meta:set_string("description", minetest.colorize("#00fffb", "TechCard") .. "\n" .. meta:get_string("id"))
+	meta:set_string("description", minetest.colorize("#00fffb", S("TechCard")) .. "\n" .. meta:get_string("id"))
 end
 
 minetest.register_craftitem("hightech:tech_card", {
-	description = minetest.colorize("#00fffb", "TechCard") .. "\nUnconfigured",
+	description = minetest.colorize("#00fffb", S("TechCard")) .. "\n" .. S("Not yet configured"),
 	inventory_image = "hightech_tech_card.png",
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
@@ -84,7 +87,7 @@ minetest.register_craftitem("hightech:tech_card", {
 			meta:set_string("id", hightech.tech_card.new())
 			hightech.tech_card.save()
 			update_tech_card_description(meta)
-			minetest.chat_send_player(user:get_player_name(), "The TechCard is now configured. It has the ID " .. meta:get_string("id") .. ".")
+			minetest.chat_send_player(user:get_player_name(), S("The TechCard is now configured. It has the ID \"@1\".", meta:get_string("id")))
 			return itemstack
 		else
 			local context = get_context(user:get_player_name())

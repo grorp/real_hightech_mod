@@ -1,3 +1,5 @@
+local S = minetest.get_translator("hightech")
+
 function hightech.get_stripe_texture(conn_dirs)
 	local texture = "hightech_dark.png^(hightech_stripe_middle.png"
 	if conn_dirs[1] then
@@ -19,7 +21,7 @@ end
 minetest.register_node(
 	"hightech:dark_stripe_horizontal",
 	{
-		description = "Dark Hightech Block\n(horizontal stripe)",
+		description = S("Dark Hightech Block\n(horizontal stripe)"),
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",
@@ -43,7 +45,7 @@ minetest.register_craft({
 minetest.register_node(
 	"hightech:dark_stripe_vertical",
 	{
-		description = "Dark Hightech Block\n(vertical stripe)",
+		description = S("Dark Hightech Block\n(vertical stripe)"),
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",

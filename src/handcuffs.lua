@@ -1,3 +1,5 @@
+local S = minetest.get_translator("hightech")
+
 local function find_index(table, value)
 	for i, v in pairs(table) do
 		if v == value then
@@ -55,12 +57,12 @@ local function un_handcuff(player, victim)
 	minetest.sound_play("hightech_handcuffs_open", {pos = victim:get_pos()}, true)
 end
 
-minetest.register_privilege("handcuff", "Allows to use Hightech Handcuffs")
+minetest.register_privilege("handcuff", S("Can handcuff other players"))
 
 minetest.register_craftitem(
 	"hightech:handcuffs",
 	{
-		description = "Hightech Handcuffs",
+		description = S("Hightech Handcuffs"),
 		inventory_image = "hightech_handcuffs.png",
 		stack_max = 1,
 		on_use = function(itemstack, player, pointed_thing)
@@ -71,20 +73,19 @@ minetest.register_craftitem(
 					if not minetest.check_player_privs(player:get_player_name(), "handcuff") then
 						minetest.chat_send_player(
 							player:get_player_name(),
-							'You are not allowed to use Hightech Handcuffs (missing "handcuff" privilege).'
+							S('You are not allowed to use Hightech Handcuffs (missing "handcuff" privilege).')
 						)
 						return
 					end
 					handcuff(player, victim)
 					minetest.chat_send_player(
 						victim:get_player_name(),
-						player:get_player_name() .. " has handcuffed you."
+						S("@1 has handcuffed you.", player:get_player_name())
 					)
 				else
 					minetest.chat_send_player(
 						player:get_player_name(),
-						victim:get_player_name() ..
-							" is already handcuffed by " .. victim_meta:get_string("handcuffed_by") .. "."
+						S("@1 is already handcuffed by @2.", victim:get_player_name(), victim_meta:get_string("handcuffed_by"))
 					)
 				end
 			else
@@ -98,7 +99,7 @@ minetest.register_craftitem(
 					un_handcuff(player, victim)
 					minetest.chat_send_player(
 						victim:get_player_name(),
-						player:get_player_name() .. " has opened your handcuffs."
+						S("@1 has opened your handcuffs.", player:get_player_name())
 					)
 				end
 			end
@@ -115,7 +116,7 @@ minetest.register_on_leaveplayer(
 			un_handcuff(handcuffer, player)
 			minetest.chat_send_player(
 				handcuffer:get_player_name(),
-				player:get_player_name() .. " is free again because he left the game."
+				S("@1 is free again because he left the game.", player:get_player_name())
 			)
 		end
 
@@ -128,7 +129,7 @@ minetest.register_on_leaveplayer(
 			un_handcuff(player, victim)
 			minetest.chat_send_player(
 				victim:get_player_name(),
-				player:get_player_name() .. " left the game, so you are now free again."
+				S("@1 left the game, so you are now free again.", player:get_player_name())
 			)
 		end
 	end

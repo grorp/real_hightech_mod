@@ -1,7 +1,9 @@
+local S = minetest.get_translator("hightech")
+
 minetest.register_node(
 	"hightech:dark",
 	{
-		description = "Dark Hightech Block",
+		description = S("Dark Hightech Block"),
 		tiles = {"hightech_dark.png"},
 		groups = {cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
@@ -13,16 +15,18 @@ stairs.register_stair_and_slab(
 	"hightech:dark",
 	{cracky = 3},
 	{"hightech_dark.png"},
-	"Dark Hightech Stair",
-	"Dark Hightech Slab",
+	S("Dark Hightech Stair"),
+	S("Dark Hightech Slab"),
 	default.node_sound_stone_defaults(),
-	false
+	false,
+	S("Inner Dark Hightech Stair"),
+	S("Outer Dark Hightech Stair")
 )
 
 minetest.register_node(
 	"hightech:dark_ore",
 	{
-		description = "Dark Hightech Ore",
+		description = S("Dark Hightech Ore"),
 		tiles = {"default_stone.png^hightech_dark_ore.png"},
 		groups = {cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
@@ -41,7 +45,7 @@ minetest.register_ore({
 minetest.register_craftitem(
 	"hightech:dark_dust",
 	{
-		description = "Dark Hightech Dust",
+		description = S("Dark Hightech Dust"),
 		inventory_image = "hightech_dark_dust.png",
 	}
 )

@@ -1,0 +1,54 @@
+# textdomain: hightech
+
+Dark Hightech Block=Dunkler Hightech-Block
+Dark Hightech Stair=Dunkle Hightech-Treppe
+Inner Dark Hightech Stair=Innere Dunkle Hightech-Treppe
+Outer Dark Hightech Stair=Äußere Dunkle Hightech-Treppe
+Dark Hightech Slab=Dunkle Hightech-Platte
+Dark Hightech Ore=Dunkles Hightech-Erz
+Dark Hightech Dust=Dunkler Hightech-Staub
+
+Hightech Glass=Hightech-Glas
+Hightech Glass Stair=Hightech-Glastreppe
+Inner Hightech Glass Stair=Innere Hightech-Glastreppe
+Outer Hightech Glass Stair=Äußere Hightech-Glastreppe
+Hightech Glass Slab=Hightech-Glasplatte
+Hightech Glass Ore=Hightech-Glas-Erz
+Hightech Glass Dust=Hightech-Glas-Staub
+
+Dark Hightech Block@n(horizontal stripe)=Dunkler Hightech-Block@n(horizontaler Streifen)
+Dark Hightech Block@n(vertical stripe)=Dunkler Hightech-Block@n(vertikaler Streifen)
+
+Dark Hightech Block@n(automatically connecting stripe on the top)=Dunkler Hightech-Block@n(automatisch verbindender Streifen auf der Oberseite)
+Dark Hightech Block@n(automatically connecting stripe on the bottom)=Dunkler Hightech-Block@n(automatisch verbindender Streifen auf der Unterseite)
+
+Hightech Door=Hightech-Tür
+Hightech Door@n(locked)=Hightech-Tür@n(abgeschlossen)
+Hightech Door@n(no window)=Hightech-Tür@n(ohne Fenster)
+Hightech Door@n(no window, locked)=Hightech-Tür@n(ohne Fenster, abgeschlossen)
+
+Hightech Sign=Hightech-Schild
+
+TechCard=TechCard
+ID: @1=ID: @1
+Balance: @1 Techies=Kontostand: @1 Techies
+Transfer=Überweisen
+Receiver ID=ID des Empfängers
+Amount [Techies]=Betrag [Techies]
+There is no TechCard with the ID "@1".=Es gibt keine TechCard mit der ID "@1".
+You can't tranfer Techies from a TechCard to itself.=Du kannst von einer TechCard keine Techies auf sie selbst überweisen.
+"@1" isn't a number.="@1" ist keine Zahl.
+The amount of Techies to transfer must be greater than 0.=Der zu überweisende Betrag an Techies muss größer als 0 sein.
+You cannot transfer more Techies than you have.=Du kannst nicht mehr Techies überweisen, als du besitzt.
+@1 Techies were transfered from the TechCard with the ID "@2" to the TechCard with the ID "@3".=@1 Techies wurden von der TechCard mit der ID "@2" an die TechCard mit der ID "@3" überwiesen.
+Not yet configured=Noch nicht konfiguriert
+The TechCard is now configured. It has the ID "@1".=Die TechCard ist jetzt konfiguriert. Sie hat die ID "@1".
+
+Can handcuff other players=Kann andere Spieler in Handschellen legen
+Hightech Handcuffs=Hightech-Handschellen
+You are not allowed to use Hightech Handcuffs (missing "handcuff" privilege).=Du kannst andere Spieler nicht in Handschellen legen (fehlendes Privileg: "handcuff").
+@1 has handcuffed you.=@1 hat dich in Handschellen gelegt.
+@1 is already handcuffed by @2.=@1 wurde bereits von @2 in Handschellen gelegt.
+@1 has opened your handcuffs.=@1 hat deine Handschellen geöffnet.
+@1 is free again because he left the game.=@1 ist wieder frei, weil er das Spiel verlassen hat.
+@1 left the game, so you are now free again.=@1 hat das Spiel verlassen, also bist du jetzt wieder frei.

@@ -1,7 +1,9 @@
+local S = minetest.get_translator("hightech")
+
 signs_lib.register_sign(
 	"hightech:sign",
 	{
-		description = "Hightech Sign",
+		description = S("Hightech Sign"),
 		inventory_image = "hightech_sign_inv.png",
 		tiles = {
 			"hightech_sign.png",
