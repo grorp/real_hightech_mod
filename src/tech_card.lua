@@ -108,7 +108,7 @@ minetest.register_craftitem("hightech:tech_card", {
 minetest.register_craft({
 	recipe = {
 		{"hightech:dark", "hightech:dark", "hightech:dark"},
-		{"hightech:dark", "hightech:dark", "hightech:dark"},
+		{"hightech:dark", "hightech:glass", "hightech:dark"},
 		{"hightech:glass", "hightech:glass", "hightech:glass"},
 	},
 	output = "hightech:tech_card",
