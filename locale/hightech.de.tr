@@ -47,8 +47,9 @@ You cannot transfer more Techies than you have.=Du kannst nicht mehr Techies üb
 Not yet configured=Noch nicht konfiguriert
 The TechCard is now configured. It has the ID "@1".=Die TechCard ist jetzt konfiguriert. Sie hat die ID "@1".
 
-Can handcuff other players=Kann andere Spieler in Handschellen legen
 Hightech Handcuffs=Hightech-Handschellen
+PUNCH somebody to handcuff them.@nUSE to open the handcuffs.=SCHLAGEN, um jemanden in Handschellen zu legen.@nBENUTZEN, um die Handschellen zu öffnen.
+Can handcuff other players=Kann andere Spieler in Handschellen legen
 You are not allowed to use Hightech Handcuffs (missing "handcuff" privilege).=Du kannst andere Spieler nicht in Handschellen legen (fehlendes Privileg: "handcuff").
 @1 has handcuffed you.=@1 hat dich in Handschellen gelegt.
 @1 is already handcuffed by @2.=@1 wurde bereits von @2 in Handschellen gelegt.
