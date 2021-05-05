@@ -27,6 +27,8 @@ Hightech Door@n(locked)=Hightech-Tür@n(abgeschlossen)
 Hightech Door@n(no window)=Hightech-Tür@n(ohne Fenster)
 Hightech Door@n(no window, locked)=Hightech-Tür@n(ohne Fenster, abgeschlossen)
 
+Hightech Grid=Hightech-Gitter
+
 Hightech Sign=Hightech-Schild
 
 TechCard=TechCard
