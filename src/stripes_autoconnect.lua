@@ -97,7 +97,7 @@ for xp = 0, 1 do
 					{
 						description = S("Dark Hightech Block\n(automatically connecting stripe on the top)"),
 						tiles = {
-							hightech.get_stripe_texture(conn_dirs),
+							hightech.internal.get_stripe_texture(conn_dirs),
 							"hightech_dark.png",
 						},
 						paramtype = "light",
@@ -124,7 +124,7 @@ for xp = 0, 1 do
 						description = S("Dark Hightech Block\n(automatically connecting stripe on the bottom)"),
 						tiles = {
 							"hightech_dark.png",
-							hightech.get_stripe_texture(conn_dirs) .. "^[transformFY",
+							hightech.internal.get_stripe_texture(conn_dirs) .. "^[transformFY",
 							"hightech_dark.png",
 						},
 						paramtype = "light",

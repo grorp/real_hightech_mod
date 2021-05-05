@@ -1,6 +1,6 @@
 local S = minetest.get_translator("hightech")
 
-function hightech.get_stripe_texture(conn_dirs)
+function hightech.internal.get_stripe_texture(conn_dirs)
 	local texture = "hightech_dark.png^(hightech_stripe_middle.png"
 	if conn_dirs[1] then
 		texture = texture .. "^(hightech_stripe_part.png^[transformFYR90)"
@@ -25,7 +25,7 @@ minetest.register_node(
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",
-			hightech.get_stripe_texture({true, true, false, false}),
+			hightech.internal.get_stripe_texture({true, true, false, false}),
 		},
 		paramtype = "light",
 		light_source = minetest.LIGHT_MAX,
@@ -49,7 +49,7 @@ minetest.register_node(
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",
-			hightech.get_stripe_texture({false, false, true, true}),
+			hightech.internal.get_stripe_texture({false, false, true, true}),
 		},
 		paramtype = "light",
 		light_source = minetest.LIGHT_MAX,
