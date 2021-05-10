@@ -277,15 +277,40 @@ minetest.register_node(
 		},
 		paramtype2 = "facedir",
 		paramtype = "light",
-		groups = {cracky = 3},
+		groups = {cracky = 3, tubedevice = 1, tubedevice_receiver = 1},
 		sounds = default.node_sound_stone_defaults(),
 		after_place_node = shop_on_place,
 		after_dig_node = shop_on_dig,
 		on_rightclick = shop_on_use,
 		on_punch = shop_on_punch,
-		on_metadata_inventory_move = shop_on_inv_change,
-		on_metadata_inventory_take = shop_on_inv_change,
 		on_metadata_inventory_put = shop_on_inv_change,
+		on_metadata_inventory_take = shop_on_inv_change,
+		on_metadata_inventory_move = shop_on_inv_change,
+
+		tube = {
+			insert_object = function(pos, _, item)
+				local meta = minetest.get_meta(pos)
+				local inv = meta:get_inventory()
+				return inv:add_item("stock", item)
+			end,
+			can_insert = function(pos, _, item, _, player_name)
+				local meta = minetest.get_meta(pos)
+				if player_name ~= meta:get_string("owner") then
+					return false
+				end
+				local inv = meta:get_inventory()
+				return inv:room_for_item("stock", item)
+			end,
+			input_inventory = "stock",
+			connect_sides = {left = 1, right = 1, back = 1, bottom = 1, top = 1},
+		},
+		allow_metadata_inventory_take = function(pos, _, _, item, player)
+			local meta = minetest.get_meta(pos)
+			if player:get_player_name() ~= meta:get_string("owner") then
+				return 0
+			end
+			return item:get_count()
+		end,
 	}
 )
 
