@@ -46,6 +46,7 @@ local function shop_update_infotext(pos)
 	if not shop_is_configured(pos) then
 		meta:set_string("infotext",
 			S("Hightech Shop") .. "\n" ..
+			minetest.translate("doors", "Owned by @1", meta:get_string("owner")) .. "\n" ..
 			S("Not yet configured")
 		)
 		return
@@ -54,6 +55,7 @@ local function shop_update_infotext(pos)
 	if shop_is_sold_out(pos) then
 		meta:set_string("infotext",
 			S("Hightech Shop") .. "\n" ..
+			minetest.translate("doors", "Owned by @1", meta:get_string("owner")) .. "\n" ..
 			S("Sold out")
 		)
 		return
