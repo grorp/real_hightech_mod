@@ -1,15 +1,11 @@
 local S = minetest.get_translator("hightech")
 local F = minetest.formspec_escape
 
-local function is_int(n)
-	return n == math.floor(n)
-end
-
 local _contexts = {}
-local function get_context(name)
-		local context = _contexts[name] or {}
-		_contexts[name] = context
-		return context
+function hightech.internal.get_context(name)
+	local context = _contexts[name] or {}
+	_contexts[name] = context
+	return context
 end
 minetest.register_on_leaveplayer(function(player)
 		_contexts[player:get_player_name()] = nil
@@ -38,11 +34,11 @@ end
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if formname == "hightech:tech_card_gui" then
 			if fields.transfer then
-				local context = get_context(player:get_player_name())
+				local context = hightech.internal.get_context(player:get_player_name())
 				minetest.show_formspec(player:get_player_name(), "hightech:tech_card_transfer_gui", tech_card_get_transfer_formspec(context))
 			end
 		elseif formname == "hightech:tech_card_transfer_gui" then
-			local context = get_context(player:get_player_name())
+			local context = hightech.internal.get_context(player:get_player_name())
 			if fields.transfer then
 				if fields.receiver_id == "" or fields.amount == "" then
 					return
@@ -60,12 +56,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 					minetest.chat_send_player(player:get_player_name(), S("\"@1\" isn't a number.", fields.amount))
 					return
 				end
-				if amount <= 0 then
-					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be greater than 0."))
+				if not hightech.internal.is_int(amount) then
+					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be a whole number."))
 					return
 				end
-				if not is_int(amount) then
-					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be a whole number."))
+				if amount <= 0 then
+					minetest.chat_send_player(player:get_player_name(), S("The amount of Techies to transfer must be greater than 0."))
 					return
 				end
 				if not hightech.tech_card.can_subtract(context.tech_card_id, amount) then
@@ -81,28 +77,31 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 end)
 
-local function update_tech_card_description(meta)
+local function tech_card_update_description(meta)
 	meta:set_string("description", minetest.colorize("#00fffb", S("TechCard")) .. "\n" .. meta:get_string("id"))
+end
+
+local function tech_card_on_place(itemstack, user)
+	local meta = itemstack:get_meta()
+	if meta:get_string("id") == "" then
+		meta:set_string("id", hightech.tech_card.new())
+		hightech.tech_card.save()
+		tech_card_update_description(meta)
+		minetest.chat_send_player(user:get_player_name(), S("The TechCard is now configured. It has the ID \"@1\".", meta:get_string("id")))
+		return itemstack
+	else
+		local context = hightech.internal.get_context(user:get_player_name())
+		context.tech_card_id = meta:get_string("id")
+		minetest.show_formspec(user:get_player_name(), "hightech:tech_card_gui", tech_card_get_formspec(context))
+	end
 end
 
 minetest.register_craftitem("hightech:tech_card", {
 	description = minetest.colorize("#00fffb", S("TechCard")) .. "\n" .. S("Not yet configured"),
 	inventory_image = "hightech_tech_card.png",
 	stack_max = 1,
-	on_use = function(itemstack, user, pointed_thing)
-		local meta = itemstack:get_meta()
-		if meta:get_string("id") == "" then
-			meta:set_string("id", hightech.tech_card.new())
-			hightech.tech_card.save()
-			update_tech_card_description(meta)
-			minetest.chat_send_player(user:get_player_name(), S("The TechCard is now configured. It has the ID \"@1\".", meta:get_string("id")))
-			return itemstack
-		else
-			local context = get_context(user:get_player_name())
-			context.tech_card_id = meta:get_string("id")
-			minetest.show_formspec(user:get_player_name(), "hightech:tech_card_gui", tech_card_get_formspec(context))
-		end
-	end,
+	on_place = tech_card_on_place,
+	on_secondary_use = tech_card_on_place,
 })
 
 minetest.register_craft({
@@ -120,6 +119,6 @@ minetest.register_on_newplayer(function(player)
 	meta:set_string("id", hightech.tech_card.new())
 	hightech.tech_card.add(meta:get_string("id"), 300)
 	hightech.tech_card.save()
-	update_tech_card_description(meta)
+	tech_card_update_description(meta)
 	player:get_inventory():add_item("main", itemstack)
 end)

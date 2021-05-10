@@ -57,3 +57,8 @@ function hightech.tech_card.can_subtract(id, amount)
 		return false
 	end
 end
+
+-- hightech.internal.is_int checks whether the given number is an integer.
+function hightech.internal.is_int(n)
+	return n == math.floor(n)
+end
