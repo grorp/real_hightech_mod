@@ -21,7 +21,16 @@ local function shop_is_configured(pos)
 	return for_sale_is_not_empty
 end
 
+local function shop_has_infinite_stock(pos)
+	local meta = minetest.get_meta(pos)
+	return minetest.is_creative_enabled(meta:get_string("owner")) and meta:get_int("infinite_stock") == 1
+end
+
 local function shop_is_sold_out(pos)
+	if shop_has_infinite_stock(pos) then
+		return false
+	end
+
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
 	local temp_inv = minetest.create_detached_inventory("hightech:shop_temp_sold_out_check:(" .. pos.x .. "," .. pos.y .. "," .. pos.z .. "):" .. os.time())
@@ -124,24 +133,26 @@ local function shop_on_use(pos, _, player)
 		local context = hightech.internal.get_context(player:get_player_name())
 		context.shop_pos = pos
 
-		local str_pos = pos.x .. "," .. pos.y .. "," .. pos.z
-		local formspec =
+		local pos_str = pos.x .. "," .. pos.y .. "," .. pos.z
+		minetest.show_formspec(player:get_player_name(), "hightech:shop_owner_gui",
 			"formspec_version[4]" ..
-			"size[10.5,16.15]" ..
+			"size[10.5,17.625]" ..
 			"label[0.375,0.5;" .. minetest.colorize("#00fffb", F(S("Hightech Shop"))) .. "]" ..
 			"field[0.375,1.25;9.75,0.8;seller_tech_card_id;" .. F(S("TechCard ID of the seller")) .. ";" .. F(meta:get_string("seller_tech_card_id")) .. "]" ..
 			"field[0.375,2.55;9.75,0.8;price;" .. F(S("Price [Techies]")) .. ";" .. F(meta:get_string("price")) .. "]" ..
 			"label[0.375,3.725;" .. F(S("Items for sale")) .. "]" ..
 			"label[0.375,4.025;" .. F(S("(these items are taken from the stock for each sale)")) .. "]" ..
-			"list[nodemeta:" .. str_pos .. ";for_sale;0.375,4.275;8,1;]" ..
+			"list[nodemeta:" .. pos_str .. ";for_sale;0.375,4.275;8,1;]" ..
 			"label[0.375,5.65;" .. F(S("Stock")) .. "]" ..
-			"list[nodemeta:" .. str_pos .. ";stock;0.375,5.9;8,4;]" ..
-			"list[current_player;main;0.375,11.025;8,4;]" ..
-			"listring[nodemeta:" .. str_pos .. ";for_sale]" ..
+			"checkbox[0.375,6.025;infinite_stock;" .. F(S("Infinite")) ..";" .. (meta:get_int("infinite_stock") == 1 and "true" or "false") .. "]" ..
+			"list[nodemeta:" .. pos_str .. ";stock;0.375,6.325;8,4;]" ..
+			"button_exit[0.375,11.325;9.75,0.8;save;" .. F(S("Save")) .."]" ..
+			"list[current_player;main;0.375,12.5;8,4;]" ..
+			"listring[nodemeta:" .. pos_str .. ";for_sale]" ..
 			"listring[current_player;main]" ..
-			"listring[nodemeta:" .. str_pos .. ";stock]" ..
+			"listring[nodemeta:" .. pos_str .. ";stock]" ..
 			"listring[current_player;main]"
-		minetest.show_formspec(player:get_player_name(), "hightech:shop_owner_gui", formspec)
+		)
 	else
 		minetest.chat_send_player(player:get_player_name(), S("PUNCH the shop with your TechCard to buy something."))
 	end
@@ -155,26 +166,20 @@ minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 end)
 
 minetest.register_on_player_receive_fields(function(player, gui_name, fields)
-	if gui_name == "hightech:shop_owner_gui" then
+	if gui_name == "hightech:shop_owner_gui" and fields.infinite_stock ~= nil then
 		local context = hightech.internal.get_context(player:get_player_name())
-		local meta = minetest.get_meta(context.shop_pos)
-
-		if fields.seller_tech_card_id then
-			if fields.seller_tech_card_id == "" then
-				meta:set_string("seller_tech_card_id", "")
-				return
-			end
-			if not hightech.tech_card.exists(fields.seller_tech_card_id) then
-				minetest.chat_send_player(player:get_player_name(), S("There is no TechCard with the ID \"@1\".", fields.seller_tech_card_id))
-				return
-			end
-			meta:set_string("seller_tech_card_id", fields.seller_tech_card_id)
+		if not minetest.is_creative_enabled(player:get_player_name()) then
+			minetest.chat_send_player(player:get_player_name(), S("The infinite stock is only available in creative mode."))
+			return
 		end
+		
+		local meta = minetest.get_meta(context.shop_pos)
+		meta:set_int("infinite_stock", fields.infinite_stock == "true" and 1 or 0)
 	end
 end)
 
 minetest.register_on_player_receive_fields(function(player, gui_name, fields)
-	if gui_name == "hightech:shop_owner_gui" then
+	if gui_name == "hightech:shop_owner_gui" and fields.save then
 		local context = hightech.internal.get_context(player:get_player_name())
 		local meta = minetest.get_meta(context.shop_pos)
 
@@ -194,6 +199,25 @@ minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 				return
 			end
 			meta:set_int("price", price)
+		end
+	end
+end)
+
+minetest.register_on_player_receive_fields(function(player, gui_name, fields)
+	if gui_name == "hightech:shop_owner_gui" and fields.save then
+		local context = hightech.internal.get_context(player:get_player_name())
+		local meta = minetest.get_meta(context.shop_pos)
+
+		if fields.seller_tech_card_id then
+			if fields.seller_tech_card_id == "" then
+				meta:set_string("seller_tech_card_id", "")
+				return
+			end
+			if not hightech.tech_card.exists(fields.seller_tech_card_id) then
+				minetest.chat_send_player(player:get_player_name(), S("There is no TechCard with the ID \"@1\".", fields.seller_tech_card_id))
+				return
+			end
+			meta:set_string("seller_tech_card_id", fields.seller_tech_card_id)
 		end
 	end
 end)
@@ -252,7 +276,9 @@ local function shop_on_punch(pos, _, player)
 	minetest.remove_detached_inventory(temp_inv:get_location().name)
 
 	for _, item in pairs(shop_inv:get_list("for_sale")) do
-		shop_inv:remove_item("stock", item)
+		if not shop_has_infinite_stock(pos) then
+			shop_inv:remove_item("stock", item)
+		end
 		player_inv:add_item("main", item)
 	end
 	hightech.tech_card.subtract(tech_card_id, price)
