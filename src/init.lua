@@ -1,6 +1,7 @@
 hightech = {}
 hightech.internal = {}
 
+dofile(minetest.get_modpath("hightech") .. "/src/helpers.lua")
 dofile(minetest.get_modpath("hightech") .. "/src/dark.lua")
 dofile(minetest.get_modpath("hightech") .. "/src/glass.lua")
 dofile(minetest.get_modpath("hightech") .. "/src/stripes.lua")

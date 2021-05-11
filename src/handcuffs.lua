@@ -1,13 +1,5 @@
 local S = minetest.get_translator("hightech")
 
-local function find_index(table, value)
-	for i, v in pairs(table) do
-		if v == value then
-			return i
-		end
-	end
-end
-
 local function handcuff(player, victim)
 	local player_meta = player:get_meta()
 	local victim_meta = victim:get_meta()
@@ -51,7 +43,7 @@ local function un_handcuff(player, victim)
 
 	victim_meta:set_string("handcuffed_by", "")
 	local player_victims = minetest.deserialize(player_meta:get_string("handcuffed_players"))
-	table.remove(player_victims, find_index(player_victims, victim:get_player_name()))
+	table.remove(player_victims, hightech.internal.find_index(player_victims, victim:get_player_name()))
 	player_meta:set_string("handcuffed_players", minetest.serialize(player_victims))
 
 	minetest.sound_play("hightech_handcuffs_open", {pos = victim:get_pos()}, true)

@@ -1,26 +1,5 @@
 local S = minetest.get_translator("hightech")
 
--- str_starts_with checks if the specified string starts with the specified prefix.
-local function str_starts_with(str, prefix)
-	return str:sub(1, #prefix) == prefix
-end
-
--- bool_to_number converts the specified boolean value to a number (either 0 or 1).
-local function bool_to_number(value)
-  return value and 1 or 0
-end
-
--- get_node_force returns the node at the specified position.
--- If necessary, the node is loaded from disk beforehand.
-local function get_node_force(pos)
-	local node = minetest.get_node_or_nil(pos)
-	if node == nil then
-		minetest.load_area(pos)
-		node = minetest.get_node_or_nil(pos)
-	end
-	return node
-end
-
 -- conn_dirs_table_to_string converts a connection directions table (a list of four boolean values, e.g. {true, true, false, false})
 -- to a connection directions string (a list of four numbers between 0 and 1, e.g. "1100").
 local function conn_dirs_table_to_string(conn_dirs)
@@ -37,7 +16,7 @@ local function conn_dirs_table_to_autoconnect_stripe_nodename(base_nodename, con
 end
 
 local function is_autoconnect_stripe_node(base_nodename, pos)
-	return str_starts_with(get_node_force(pos).name, base_nodename)
+	return hightech.internal.starts_with(hightech.internal.get_node_force(pos).name, base_nodename)
 end
 
 local function get_autoconnect_stripe_node_conn_dirs(base_nodename, pos)
@@ -104,7 +83,7 @@ for xp = 0, 1 do
 						light_source = minetest.LIGHT_MAX,
 						groups = {
 							cracky = 3,
-							not_in_creative_inventory = bool_to_number(autoconnect_stripe_top_nodename ~= autoconnect_stripe_top_inv_nodename),
+							not_in_creative_inventory = autoconnect_stripe_top_nodename == autoconnect_stripe_top_inv_nodename and 0 or 1,
 						},
 						sounds = default.node_sound_stone_defaults(),
 						after_place_node = function(pos)
@@ -117,6 +96,7 @@ for xp = 0, 1 do
 						drop = autoconnect_stripe_top_inv_nodename,
 					}
 				)
+				print(autoconnect_stripe_top_nodename == autoconnect_stripe_top_inv_nodename and 1 or 0)
 
 				minetest.register_node(
 					autoconnect_stripe_bottom_nodename,
@@ -131,7 +111,7 @@ for xp = 0, 1 do
 						light_source = minetest.LIGHT_MAX,
 						groups = {
 							cracky = 3,
-							not_in_creative_inventory = bool_to_number(autoconnect_stripe_bottom_nodename ~= autoconnect_stripe_bottom_inv_nodename),
+							not_in_creative_inventory = autoconnect_stripe_bottom_nodename == autoconnect_stripe_bottom_inv_nodename and 0 or 1,
 						},
 						sounds = default.node_sound_stone_defaults(),
 						after_place_node = function(pos)
