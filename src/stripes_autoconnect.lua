@@ -96,7 +96,6 @@ for xp = 0, 1 do
 						drop = autoconnect_stripe_top_inv_nodename,
 					}
 				)
-				print(autoconnect_stripe_top_nodename == autoconnect_stripe_top_inv_nodename and 1 or 0)
 
 				minetest.register_node(
 					autoconnect_stripe_bottom_nodename,
