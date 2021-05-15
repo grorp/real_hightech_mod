@@ -5,6 +5,7 @@ local S = minetest.get_translator("hightech")
 local function conn_dirs_table_to_string(conn_dirs)
 	return (conn_dirs[1] and 1 or 0) .. (conn_dirs[2] and 1 or 0) .. (conn_dirs[3] and 1 or 0) .. (conn_dirs[4] and 1 or 0)
 end
+
 -- conn_dirs_string_to_table does the opposite of conn_dirs_table_to_string.
 -- Who would have thought it?
 local function conn_dirs_string_to_table(conn_dirs)
