@@ -120,11 +120,19 @@ local function shop_on_place(pos, player)
 
 	local ent = shop_get_entity(pos)
 	ent:set_rotation(vector.dir_to_rotation(minetest.facedir_to_dir(minetest.get_node(pos).param2)))
+
+	if pipeworks then
+		pipeworks.after_place(pos)
+	end
 end
 
 local function shop_on_dig(pos)
 	local ent = shop_get_entity(pos)
 	ent:remove()
+
+	if pipeworks then
+		pipeworks.after_dig(pos)
+	end
 end
 
 local function shop_on_use(pos, _, player)
