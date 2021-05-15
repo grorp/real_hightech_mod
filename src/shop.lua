@@ -135,14 +135,12 @@ local function shop_on_dig(pos)
 	end
 end
 
-local function shop_on_use(pos, _, player)
+local function shop_get_owner_formspec(pos)
 	local meta = minetest.get_meta(pos)
-	if hightech.internal.is_allowed(pos, player:get_player_name()) then
-		local context = hightech.internal.get_context(player:get_player_name())
-		context.shop_pos = pos
+	local pos_str = pos.x .. "," .. pos.y .. "," .. pos.z
 
-		local pos_str = pos.x .. "," .. pos.y .. "," .. pos.z
-		minetest.show_formspec(player:get_player_name(), "hightech:shop_owner_gui",
+	if minetest.is_creative_enabled(meta:get_string("owner")) then
+		return
 			"formspec_version[4]" ..
 			"size[10.5,17.625]" ..
 			"label[0.375,0.5;" .. minetest.colorize("#00fffb", F(S("Hightech Shop"))) .. "]" ..
@@ -160,7 +158,32 @@ local function shop_on_use(pos, _, player)
 			"listring[current_player;main]" ..
 			"listring[nodemeta:" .. pos_str .. ";stock]" ..
 			"listring[current_player;main]"
-		)
+	end
+
+	return
+		"formspec_version[4]" ..
+		"size[10.5,17.2]" ..
+		"label[0.375,0.5;" .. minetest.colorize("#00fffb", F(S("Hightech Shop"))) .. "]" ..
+		"field[0.375,1.25;9.75,0.8;seller_tech_card_id;" .. F(S("TechCard ID of the seller")) .. ";" .. F(meta:get_string("seller_tech_card_id")) .. "]" ..
+		"field[0.375,2.55;9.75,0.8;price;" .. F(S("Price [Techies]")) .. ";" .. F(meta:get_string("price")) .. "]" ..
+		"label[0.375,3.725;" .. F(S("Items for sale")) .. "]" ..
+		"label[0.375,4.025;" .. F(S("(these items are taken from the stock for each sale)")) .. "]" ..
+		"list[nodemeta:" .. pos_str .. ";for_sale;0.375,4.275;8,1;]" ..
+		"label[0.375,5.65;" .. F(S("Stock")) .. "]" ..
+		"list[nodemeta:" .. pos_str .. ";stock;0.375,5.9;8,4;]" ..
+		"button_exit[0.375,10.9;9.75,0.8;save;" .. F(S("Save")) .."]" ..
+		"list[current_player;main;0.375,12.075;8,4;]" ..
+		"listring[nodemeta:" .. pos_str .. ";for_sale]" ..
+		"listring[current_player;main]" ..
+		"listring[nodemeta:" .. pos_str .. ";stock]" ..
+		"listring[current_player;main]"
+end
+
+local function shop_on_use(pos, _, player)
+	if hightech.internal.is_allowed(pos, player:get_player_name()) then
+		local context = hightech.internal.get_context(player:get_player_name())
+		context.shop_pos = pos
+		minetest.show_formspec(player:get_player_name(), "hightech:shop_owner_gui", shop_get_owner_formspec(pos))
 	else
 		minetest.chat_send_player(player:get_player_name(), S("PUNCH the shop with your TechCard to buy something."))
 	end
