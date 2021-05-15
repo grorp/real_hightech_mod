@@ -22,3 +22,15 @@ function hightech.internal.get_node_force(pos)
 	end
 	return node
 end
+
+-- hightech.internal.is_allowed checks whether the specified player is allowed to interact with the node at the specified position.
+function hightech.internal.is_allowed(pos, player_name)
+	if minetest.check_player_privs(player_name, { protection_bypass = true }) then
+		return true
+	end
+	local meta = minetest.get_meta(pos)
+	if meta:get_string("owner") == player_name then
+		return true
+	end
+	return false
+end

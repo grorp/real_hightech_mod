@@ -7,18 +7,10 @@ local function hightech_grid_after_place(pos, player)
 	minetest.get_node_timer(pos):start(0.1)
 end
 
-local function hightech_grid_is_object_allowed(pos, obj)
-	local meta = minetest.get_meta(pos)
-  if obj:get_player_name() == meta:get_string("owner") then
-		return true
-	end
-	return false
-end
-
 local function hightech_grid_should_be_open(pos)
   local objs = minetest.get_objects_inside_radius(pos, 3)
   for _, obj in pairs(objs) do
-    if hightech_grid_is_object_allowed(pos, obj) then
+    if hightech.internal.is_allowed(pos, obj:get_player_name()) then
 			return true
 		end
 	end

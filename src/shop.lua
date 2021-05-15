@@ -129,7 +129,7 @@ end
 
 local function shop_on_use(pos, _, player)
 	local meta = minetest.get_meta(pos)
-	if player:get_player_name() == meta:get_string("owner") then
+	if hightech.internal.is_allowed(pos, player:get_player_name()) then
 		local context = hightech.internal.get_context(player:get_player_name())
 		context.shop_pos = pos
 
@@ -323,7 +323,7 @@ minetest.register_node(
 			end,
 			can_insert = function(pos, _, item, _, player_name)
 				local meta = minetest.get_meta(pos)
-				if player_name ~= meta:get_string("owner") then
+				if not hightech.internal.is_allowed(pos, player_name) then
 					return false
 				end
 				local inv = meta:get_inventory()
@@ -333,8 +333,7 @@ minetest.register_node(
 			connect_sides = {left = 1, right = 1, back = 1, bottom = 1, top = 1},
 		},
 		allow_metadata_inventory_take = function(pos, _, _, item, player)
-			local meta = minetest.get_meta(pos)
-			if player:get_player_name() ~= meta:get_string("owner") then
+			if not hightech.internal.is_allowed(pos, player:get_player_name()) then
 				return 0
 			end
 			return item:get_count()
