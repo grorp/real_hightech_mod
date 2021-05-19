@@ -425,3 +425,12 @@ function ShopItemEntity:on_activate(staticdata)
 end
 
 minetest.register_entity("hightech:shop_item", ShopItemEntity)
+
+minetest.register_lbm({
+	name = "hightech:regen_shop_entities",
+	nodenames = {"hightech:shop"},
+	action = function(pos)
+		shop_get_entity(pos)
+	end,
+	run_at_every_load = true,
+})
