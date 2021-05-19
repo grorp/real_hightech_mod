@@ -203,7 +203,7 @@ minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 			minetest.chat_send_player(player:get_player_name(), S("The infinite stock is only available in creative mode."))
 			return
 		end
-		
+
 		local meta = minetest.get_meta(context.shop_pos)
 		meta:set_int("infinite_stock", fields.infinite_stock == "true" and 1 or 0)
 	end
