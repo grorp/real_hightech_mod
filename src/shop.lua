@@ -307,10 +307,13 @@ local function shop_on_punch(pos, _, player)
 	minetest.remove_detached_inventory(temp_inv:get_location().name)
 
 	for _, item in pairs(shop_inv:get_list("for_sale")) do
+		local sold_item
 		if not shop_has_infinite_stock(pos) then
-			shop_inv:remove_item("stock", item)
+			sold_item = shop_inv:remove_item("stock", item)
+		else
+			sold_item = item
 		end
-		player_inv:add_item("main", item)
+		player_inv:add_item("main", sold_item)
 	end
 	hightech.tech_card.subtract(tech_card_id, price)
 	hightech.tech_card.add(meta:get_string("seller_tech_card_id"), price)
