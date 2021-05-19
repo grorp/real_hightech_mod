@@ -100,13 +100,33 @@ local function shop_update_infotext(pos)
 	)
 end
 
-local function shop_get_entity(pos)
+local function shop_find_entity(pos)
 	for _, obj in pairs(minetest.get_objects_inside_radius(pos, 0)) do
 		if obj:get_luaentity().name == "hightech:shop_item" then
 			return obj
 		end
 	end
-	return minetest.add_entity(pos, "hightech:shop_item")
+end
+
+local function shop_update_entity_item(pos)
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
+	local for_sale_item = inv:get_stack("for_sale", 1)
+
+	local obj = shop_find_entity(pos)
+	obj:get_luaentity():set_item(for_sale_item:get_name())
+end
+
+local function shop_get_entity(pos)
+	local obj = shop_find_entity(pos)
+	if obj then
+		return obj
+	end
+
+	obj = minetest.add_entity(pos, "hightech:shop_item")
+	obj:set_rotation(vector.dir_to_rotation(minetest.facedir_to_dir(minetest.get_node(pos).param2)))
+	shop_update_entity_item(pos)
+	return obj
 end
 
 local function shop_on_place(pos, player)
@@ -118,8 +138,7 @@ local function shop_on_place(pos, player)
 	inv:set_size("for_sale", 8)
 	inv:set_size("stock", 32)
 
-	local ent = shop_get_entity(pos)
-	ent:set_rotation(vector.dir_to_rotation(minetest.facedir_to_dir(minetest.get_node(pos).param2)))
+	shop_get_entity(pos)
 
 	if pipeworks then
 		pipeworks.after_place(pos)
@@ -181,6 +200,8 @@ end
 
 local function shop_on_use(pos, _, player)
 	if hightech.internal.is_allowed(pos, player:get_player_name()) then
+		shop_get_entity(pos)
+
 		local context = hightech.internal.get_context(player:get_player_name())
 		context.shop_pos = pos
 		minetest.show_formspec(player:get_player_name(), "hightech:shop_owner_gui", shop_get_owner_formspec(pos))
@@ -254,13 +275,8 @@ minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 end)
 
 local function shop_on_inv_change(pos)
-	local meta = minetest.get_meta(pos)
-
-	local inv = meta:get_inventory()
-	local for_sale_item = inv:get_stack("for_sale", 1)
-	local ent = shop_get_entity(pos)
-	ent:get_luaentity():set_item(for_sale_item:get_name())
-
+	shop_get_entity(pos)
+	shop_update_entity_item(pos)
 	shop_update_infotext(pos)
 end
 
