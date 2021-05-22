@@ -403,16 +403,8 @@ local ShopItemEntity = {
 function ShopItemEntity:set_item(item)
 	self.object:set_properties({
 		wield_item = item,
+		is_visible = item ~= "",
 	})
-	if item == "" then
-		self.object:set_properties({
-			visual_size = {x = 0, y = 0, z = 0},
-		})
-	else
-		self.object:set_properties({
-			visual_size = ShopItemEntity.initial_properties.visual_size,
-		})
-	end
 end
 
 function ShopItemEntity:get_staticdata()
