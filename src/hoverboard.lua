@@ -88,6 +88,7 @@ function Hoverboard:on_punch(player)
 		end
 	end
 
+	minetest.sound_play(default.node_sound_stone_defaults().dug, {pos = self.object:get_pos()}, true)
 	self.object:remove()
 end
 
@@ -99,6 +100,8 @@ minetest.register_craftitem("hightech:hoverboard", {
 	on_place = function(item, player, pointed_thing)
 		if pointed_thing.type == "node" then
 			minetest.add_entity(pointed_thing.above, "hightech:hoverboard")
+			minetest.sound_play(default.node_sound_stone_defaults().place, {pos = pointed_thing.above}, true)
+
 			if not minetest.is_creative_enabled(player:get_player_name()) then
 				item:take_item()
 				return item
