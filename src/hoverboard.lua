@@ -97,6 +97,7 @@ minetest.register_entity("hightech:hoverboard", Hoverboard)
 minetest.register_craftitem("hightech:hoverboard", {
 	description = S("Hoverboard"),
 	inventory_image = "hightech_hoverboard_inv.png",
+	wield_image = "hightech_hoverboard_wield.png",
 	on_place = function(item, player, pointed_thing)
 		if pointed_thing.type == "node" then
 			minetest.add_entity(pointed_thing.above, "hightech:hoverboard")
