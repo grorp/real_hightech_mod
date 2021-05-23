@@ -73,6 +73,24 @@ function Hoverboard:on_step(dtime)
 	velocity = vector.rotate(velocity, self.object:get_rotation())
 
 	self.object:set_velocity(velocity)
+
+	if accelerate and not self.particle_spawner_id then
+		self.particle_spawner_id = minetest.add_particlespawner({
+			texture = "hightech_glass.png",
+			glow = minetest.LIGHT_MAX,
+			amount = 100,
+			time = 0,
+			attached = self.object,
+			minpos = {x = 0, y = -0.2, z = -0.85},
+			maxpos = {x = 0, y = -0.2, z = -0.85},
+			minvel ={x = 1, y = 2, z = -5},
+			maxvel = {x = -1, y = -2, z = -10},
+		})
+	end
+	if not accelerate and self.particle_spawner_id then
+		minetest.delete_particlespawner(self.particle_spawner_id)
+		self.particle_spawner_id = nil
+	end
 end
 
 function Hoverboard:on_punch(player)
