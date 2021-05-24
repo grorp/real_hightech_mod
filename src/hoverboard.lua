@@ -81,9 +81,9 @@ function Hoverboard:on_step(dtime)
 			amount = 100,
 			time = 0,
 			attached = self.object,
-			minpos = {x = 0, y = -0.2, z = -0.85},
-			maxpos = {x = 0, y = -0.2, z = -0.85},
-			minvel ={x = 1, y = 2, z = -5},
+			minpos = {x = 0, y = -0.09, z = -0.85},
+			maxpos = {x = 0, y = -0.09, z = -0.85},
+			minvel = {x = 1, y = 2, z = -5},
 			maxvel = {x = -1, y = -2, z = -10},
 		})
 	end
