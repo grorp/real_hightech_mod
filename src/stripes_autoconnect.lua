@@ -17,7 +17,7 @@ local function conn_dirs_table_to_autoconnect_stripe_nodename(base_nodename, con
 end
 
 local function is_autoconnect_stripe_node(base_nodename, pos)
-	return hightech.internal.starts_with(hightech.internal.get_node_force(pos).name, base_nodename)
+	return hightech.internal.str.has_prefix(hightech.internal.get_node_force(pos).name, base_nodename)
 end
 
 local function get_autoconnect_stripe_node_conn_dirs(base_nodename, pos)
