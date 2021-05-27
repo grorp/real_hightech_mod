@@ -202,7 +202,7 @@ local function shop_on_use(pos, _, player)
 	if hightech.internal.is_allowed(pos, player:get_player_name()) then
 		shop_get_entity(pos)
 
-		local context = hightech.internal.get_context(player:get_player_name())
+		local context = hightech.internal.get_context(player)
 		context.shop_pos = pos
 		minetest.show_formspec(player:get_player_name(), "hightech:shop_owner_gui", shop_get_owner_formspec(pos))
 	else
@@ -212,14 +212,14 @@ end
 
 minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 	if gui_name == "hightech:shop_owner_gui" then
-		local context = hightech.internal.get_context(player:get_player_name())
+		local context = hightech.internal.get_context(player)
 		shop_update_infotext(context.shop_pos)
 	end
 end)
 
 minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 	if gui_name == "hightech:shop_owner_gui" and fields.infinite_stock ~= nil then
-		local context = hightech.internal.get_context(player:get_player_name())
+		local context = hightech.internal.get_context(player)
 		if not minetest.is_creative_enabled(player:get_player_name()) then
 			minetest.chat_send_player(player:get_player_name(), S("The infinite stock is only available in creative mode."))
 			return
@@ -232,7 +232,7 @@ end)
 
 minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 	if gui_name == "hightech:shop_owner_gui" and fields.save then
-		local context = hightech.internal.get_context(player:get_player_name())
+		local context = hightech.internal.get_context(player)
 		local meta = minetest.get_meta(context.shop_pos)
 
 		if fields.price then
@@ -257,7 +257,7 @@ end)
 
 minetest.register_on_player_receive_fields(function(player, gui_name, fields)
 	if gui_name == "hightech:shop_owner_gui" and fields.save then
-		local context = hightech.internal.get_context(player:get_player_name())
+		local context = hightech.internal.get_context(player)
 		local meta = minetest.get_meta(context.shop_pos)
 
 		if fields.seller_tech_card_id then

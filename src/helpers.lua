@@ -1,3 +1,15 @@
+local contexts = {}
+
+function hightech.internal.get_context(player)
+	local context = contexts[player:get_player_name()] or {}
+	contexts[player:get_player_name()] = context
+	return context
+end
+
+minetest.register_on_leaveplayer(function(player)
+	contexts[player:get_player_name()] = nil
+end)
+
 -- hightech.internal.find_index returns the position where the value occurs in the table for the first time.
 function hightech.internal.find_index(table, value)
 	for i, v in pairs(table) do

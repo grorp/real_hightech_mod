@@ -1,16 +1,6 @@
 local S = minetest.get_translator("hightech")
 local F = minetest.formspec_escape
 
-local _contexts = {}
-function hightech.internal.get_context(name)
-	local context = _contexts[name] or {}
-	_contexts[name] = context
-	return context
-end
-minetest.register_on_leaveplayer(function(player)
-		_contexts[player:get_player_name()] = nil
-end)
-
 local function tech_card_get_formspec(context)
 	return
 		"formspec_version[4]" ..
@@ -34,11 +24,11 @@ end
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if formname == "hightech:tech_card_gui" then
 			if fields.transfer then
-				local context = hightech.internal.get_context(player:get_player_name())
+				local context = hightech.internal.get_context(player)
 				minetest.show_formspec(player:get_player_name(), "hightech:tech_card_transfer_gui", tech_card_get_transfer_formspec(context))
 			end
 		elseif formname == "hightech:tech_card_transfer_gui" then
-			local context = hightech.internal.get_context(player:get_player_name())
+			local context = hightech.internal.get_context(player)
 			if fields.transfer then
 				if fields.receiver_id == "" or fields.amount == "" then
 					return
@@ -90,7 +80,7 @@ local function tech_card_on_place(itemstack, user)
 		minetest.chat_send_player(user:get_player_name(), S("The TechCard is now configured. It has the ID \"@1\".", meta:get_string("id")))
 		return itemstack
 	else
-		local context = hightech.internal.get_context(user:get_player_name())
+		local context = hightech.internal.get_context(user)
 		context.tech_card_id = meta:get_string("id")
 		minetest.show_formspec(user:get_player_name(), "hightech:tech_card_gui", tech_card_get_formspec(context))
 	end
