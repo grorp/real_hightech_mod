@@ -8,9 +8,9 @@ local function hightech_grid_after_place(pos, player)
 end
 
 local function hightech_grid_should_be_open(pos)
-  local objs = minetest.get_objects_inside_radius(pos, 3)
-  for _, obj in pairs(objs) do
-    if hightech.internal.is_allowed(pos, obj:get_player_name()) then
+	local objs = minetest.get_objects_inside_radius(pos, 3)
+	for _, obj in pairs(objs) do
+		if hightech.internal.is_allowed(pos, obj:get_player_name()) then
 			return true
 		end
 	end

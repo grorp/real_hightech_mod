@@ -408,12 +408,12 @@ function ShopItemEntity:set_item(item)
 end
 
 function ShopItemEntity:get_staticdata()
-  return minetest.serialize({item = self.object:get_properties().wield_item})
+	return minetest.serialize({item = self.object:get_properties().wield_item})
 end
 
 function ShopItemEntity:on_activate(staticdata)
-  local data = minetest.deserialize(staticdata) or {}
-  self:set_item(data.item or "")
+	local data = minetest.deserialize(staticdata) or {}
+	self:set_item(data.item or "")
 end
 
 minetest.register_entity("hightech:shop_item", ShopItemEntity)

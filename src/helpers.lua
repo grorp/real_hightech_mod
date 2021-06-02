@@ -60,10 +60,10 @@ end
 
 -- hightech.internal.table.concat appends the second table to the end of the first table and returns the result.
 function hightech.internal.table.concat(t1, t2)
-  for i = 1, #t2 do
-    t1[#t1 + 1] = t2[i]
-  end
-  return t1
+	for i = 1, #t2 do
+		t1[#t1 + 1] = t2[i]
+	end
+	return t1
 end
 
 -- hightech.internal.table.reverse returns the table in reverse order.

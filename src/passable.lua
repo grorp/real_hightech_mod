@@ -5,7 +5,7 @@ minetest.register_node(
 	{
 		description = S("Passable Dark Hightech"),
 		tiles = {"hightech_dark.png"},
-    walkable = false,
+		walkable = false,
 		groups = {cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
 	}
