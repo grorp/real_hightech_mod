@@ -21,7 +21,7 @@ end
 minetest.register_node(
 	"hightech:dark_stripe_horizontal",
 	{
-		description = S("Dark Hightech Block\n(horizontal stripe)"),
+		description = S("Dark Hightech\n(horizontal stripe)"),
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",
@@ -45,7 +45,7 @@ minetest.register_craft({
 minetest.register_node(
 	"hightech:dark_stripe_vertical",
 	{
-		description = S("Dark Hightech Block\n(vertical stripe)"),
+		description = S("Dark Hightech\n(vertical stripe)"),
 		tiles = {
 			"hightech_dark.png",
 			"hightech_dark.png",

@@ -75,7 +75,7 @@ for xp = 0, 1 do
 				minetest.register_node(
 					autoconnect_stripe_top_nodename,
 					{
-						description = S("Dark Hightech Block\n(automatically connecting stripe on the top)"),
+						description = S("Dark Hightech\n(automatically connecting stripe on the top)"),
 						tiles = {
 							hightech.internal.get_stripe_texture(conn_dirs),
 							"hightech_dark.png",
@@ -101,7 +101,7 @@ for xp = 0, 1 do
 				minetest.register_node(
 					autoconnect_stripe_bottom_nodename,
 					{
-						description = S("Dark Hightech Block\n(automatically connecting stripe on the bottom)"),
+						description = S("Dark Hightech\n(automatically connecting stripe on the bottom)"),
 						tiles = {
 							"hightech_dark.png",
 							hightech.internal.get_stripe_texture(conn_dirs) .. "^[transformFY",

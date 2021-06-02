@@ -1,6 +1,6 @@
 # textdomain: hightech
 
-Dark Hightech Block=Dunkler Hightech-Block
+Dark Hightech=Dunkles Hightech
 Dark Hightech Stair=Dunkle Hightech-Treppe
 Inner Dark Hightech Stair=Innere Dunkle Hightech-Treppe
 Outer Dark Hightech Stair=Äußere Dunkle Hightech-Treppe
@@ -16,11 +16,11 @@ Hightech Glass Slab=Hightech-Glasplatte
 Hightech Glass Ore=Hightech-Glas-Erz
 Hightech Glass Dust=Hightech-Glas-Staub
 
-Dark Hightech Block@n(horizontal stripe)=Dunkler Hightech-Block@n(horizontaler Streifen)
-Dark Hightech Block@n(vertical stripe)=Dunkler Hightech-Block@n(vertikaler Streifen)
+Dark Hightech@n(horizontal stripe)=Dunkles Hightech@n(horizontaler Streifen)
+Dark Hightech@n(vertical stripe)=Dunkles Hightech@n(vertikaler Streifen)
 
-Dark Hightech Block@n(automatically connecting stripe on the top)=Dunkler Hightech-Block@n(automatisch verbindender Streifen auf der Oberseite)
-Dark Hightech Block@n(automatically connecting stripe on the bottom)=Dunkler Hightech-Block@n(automatisch verbindender Streifen auf der Unterseite)
+Dark Hightech@n(automatically connecting stripe on the top)=Dunkles Hightech@n(automatisch verbindender Streifen auf der Oberseite)
+Dark Hightech@n(automatically connecting stripe on the bottom)=Dunkles Hightech@n(automatisch verbindender Streifen auf der Unterseite)
 
 Hightech Door=Hightech-Tür
 Hightech Door@n(locked)=Hightech-Tür@n(abgeschlossen)

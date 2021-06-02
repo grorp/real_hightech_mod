@@ -3,7 +3,7 @@ local S = minetest.get_translator("hightech")
 minetest.register_node(
 	"hightech:dark",
 	{
-		description = S("Dark Hightech Block"),
+		description = S("Dark Hightech"),
 		tiles = {"hightech_dark.png"},
 		groups = {cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
