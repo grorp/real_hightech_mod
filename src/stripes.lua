@@ -27,8 +27,6 @@ minetest.register_node(
 			"hightech_dark.png",
 			hightech.internal.get_stripe_texture({true, true, false, false}),
 		},
-		paramtype = "light",
-		light_source = minetest.LIGHT_MAX,
 		groups = {cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
 	}
@@ -51,8 +49,6 @@ minetest.register_node(
 			"hightech_dark.png",
 			hightech.internal.get_stripe_texture({false, false, true, true}),
 		},
-		paramtype = "light",
-		light_source = minetest.LIGHT_MAX,
 		groups = {cracky = 3},
 		sounds = default.node_sound_stone_defaults(),
 	}

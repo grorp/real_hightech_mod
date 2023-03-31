@@ -110,3 +110,13 @@ minetest.override_item("xpanes:hightech_grid_open_flat", {
 	light_source = minetest.LIGHT_MAX,
 	drop = "xpanes:hightech_grid_flat",
 })
+
+minetest.register_lbm({
+	name = "hightech:activate_grids",
+	nodenames = {"xpanes:hightech_grid", "xpanes:hightech_grid_open", "xpanes:hightech_grid_flat", "xpanes:hightech_grid_open_flat"},
+	run_at_every_load = true,
+	action = function(pos)
+		local timer = minetest.get_node_timer(pos)
+		timer:start(0.1)
+	end,
+})

@@ -80,8 +80,6 @@ for xp = 0, 1 do
 							hightech.internal.get_stripe_texture(conn_dirs),
 							"hightech_dark.png",
 						},
-						paramtype = "light",
-						light_source = minetest.LIGHT_MAX,
 						groups = {
 							cracky = 3,
 							not_in_creative_inventory = autoconnect_stripe_top_nodename == autoconnect_stripe_top_inv_nodename and 0 or 1,
@@ -107,8 +105,6 @@ for xp = 0, 1 do
 							hightech.internal.get_stripe_texture(conn_dirs) .. "^[transformFY",
 							"hightech_dark.png",
 						},
-						paramtype = "light",
-						light_source = minetest.LIGHT_MAX,
 						groups = {
 							cracky = 3,
 							not_in_creative_inventory = autoconnect_stripe_bottom_nodename == autoconnect_stripe_bottom_inv_nodename and 0 or 1,
